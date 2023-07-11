@@ -8,12 +8,13 @@ import {
 } from "react-router-dom";
 import Home from "./Home";
 import "./reset.css";
+import LoginPage from "./pages/auth/login";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
+      <Route path="auth/login" element={<LoginPage />} />
       <Route path="/" element={<Home />} />
-      <Route path="test" element={<div>test</div>} />
       <Route path="aaa" element={<div>aaabbb</div>} />
     </Route>
   )
