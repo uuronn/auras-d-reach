@@ -1,15 +1,15 @@
 import { Button } from "~/components/Button";
-import { FirebaseAuthGuard } from "~/guard/FirebaseAuthGuard";
+import { VerifyFirebaseAuthGuard } from "~/guards/VerifyFirebaseAuthGuard";
 import { useLogin } from "./hooks/useLogin";
 
 const LoginPage = () => {
   return (
-    <FirebaseAuthGuard>
+    <VerifyFirebaseAuthGuard>
       <main>
         <div>ログインしてください。</div>
         <Button onClick={useLogin}>Googleでログイン</Button>
       </main>
-    </FirebaseAuthGuard>
+    </VerifyFirebaseAuthGuard>
   );
 };
 
