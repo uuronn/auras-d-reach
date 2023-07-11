@@ -15,6 +15,10 @@ const button = css`
   background: #bebebe;
 `;
 
-export const Button = ({ children }: ButtonProps) => {
-  return <button css={button}>{children}</button>;
+export const Button = ({ children, ...props }: ButtonProps) => {
+  return (
+    <button css={button} {...props}>
+      {children}
+    </button>
+  );
 };
