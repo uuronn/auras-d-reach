@@ -13,8 +13,8 @@ import LoginPage from "./pages/auth/login";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
-      <Route path="auth/login" element={<LoginPage />} />
       <Route path="/" element={<Home />} />
+      <Route path="auth/login" element={<LoginPage />} />
       <Route path="aaa" element={<div>aaabbb</div>} />
     </Route>
   )
