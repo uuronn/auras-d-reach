@@ -6,7 +6,6 @@ import tsconfigPaths from "vite-tsconfig-paths";
 export default defineConfig({
   plugins: [react({ jsxImportSource: "@emotion/react" }), tsconfigPaths()],
   server: {
-    port: 8080,
-    open: "/"
+    port: 8080
   }
 });

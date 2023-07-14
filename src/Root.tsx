@@ -9,6 +9,7 @@ import {
 import Home from "./Home";
 import "./reset.css";
 import LoginPage from "./pages/auth/login";
+import { AuthProvider } from "./context/AuthProvider";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -27,7 +28,9 @@ if (root) {
 
   app.render(
     <StrictMode>
-      <RouterProvider router={router} />
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
     </StrictMode>
   );
 }
