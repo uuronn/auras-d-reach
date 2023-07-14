@@ -1,20 +1,9 @@
 import { css } from "@emotion/react";
 import { Button } from "./components/Button";
-import { useLogin } from "./pages/auth/login/hooks/useLogin";
+import { useGoogleLogin } from "./pages/auth/login/hooks/useGoogleLogin";
 import { useEffect, useState } from "react";
 import { useAuthContext } from "./context/useAuthContext";
-import {
-  collection,
-  query,
-  where,
-  getDocs,
-  onSnapshot,
-  doc,
-  setDoc,
-  getDoc,
-  DocumentSnapshot,
-  DocumentData
-} from "firebase/firestore";
+import { onSnapshot, doc, setDoc, getDoc } from "firebase/firestore";
 import { db } from "firebaseConfig";
 
 const Home = () => {
@@ -81,7 +70,7 @@ const Home = () => {
       <p>name: {user?.displayName}</p>
       <p>オンラインス数: {onlineUser}</p>
       <Button onClick={click}>答える</Button>
-      <Button onClick={useLogin}>test</Button>
+      <Button onClick={useGoogleLogin}>test</Button>
     </div>
   );
 };
