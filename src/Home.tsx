@@ -2,12 +2,11 @@ import { css } from "@emotion/react";
 import { Button } from "./components/Button";
 import { useGoogleLogin } from "./pages/auth/login/hooks/useGoogleLogin";
 import { useEffect, useState } from "react";
-import { useAuthContext } from "./context/useAuthContext";
+import { useAuthContext } from "./context/hooks/useAuthContext";
 import { onSnapshot, doc, setDoc, getDoc } from "firebase/firestore";
 import { db } from "firebaseConfig";
 
 const Home = () => {
-  const [onlineUser, setOnlineUser] = useState<number>(0);
   const [test, setTest] = useState<boolean>();
 
   const { user } = useAuthContext();
@@ -68,7 +67,6 @@ const Home = () => {
       )}
       hello world
       <p>name: {user?.displayName}</p>
-      <p>オンラインス数: {onlineUser}</p>
       <Button onClick={click}>答える</Button>
       <Button onClick={useGoogleLogin}>test</Button>
     </div>
