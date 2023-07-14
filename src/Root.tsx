@@ -6,7 +6,7 @@ import {
   createBrowserRouter,
   createRoutesFromElements
 } from "react-router-dom";
-import Home from "./Home";
+import Home from "./pages";
 import "./reset.css";
 import LoginPage from "./pages/auth/login";
 import { AuthProvider } from "./context/AuthProvider";

@@ -1,8 +1,8 @@
 import { css } from "@emotion/react";
-import { Button } from "./components/Button";
-import { useGoogleLogin } from "./pages/auth/login/hooks/useGoogleLogin";
+import { Button } from "../components/Button";
+import { useGoogleLogin } from "./auth/login/hooks/useGoogleLogin";
 import { useEffect, useState } from "react";
-import { useAuthContext } from "./context/hooks/useAuthContext";
+import { useAuthContext } from "../context/hooks/useAuthContext";
 import { onSnapshot, doc, setDoc, getDoc } from "firebase/firestore";
 import { db } from "firebaseConfig";
 
