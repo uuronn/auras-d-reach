@@ -2,7 +2,8 @@ import { Button } from "~/components/Button";
 import { useGoogleLogin } from "./hooks/useGoogleLogin";
 import { useLogout } from "./hooks/useLogout";
 import { css } from "@emotion/react";
-
+import GoogleImg from "../../../assets/google.svg";
+import DoorImg from "../../../assets/door.svg";
 const LoginBox = css`
   flex-direction: column;
   padding: 80px;
@@ -35,11 +36,11 @@ const LoginPage = () => {
     <main css={Main}>
       <div css={LoginBox}>
         <Button css={contents} onClick={useGoogleLogin}>
-          <img css={img} src="/google.svg" />
+          <img css={img} src={GoogleImg} />
           Googleでログイン
         </Button>
         <Button css={contents} onClick={useLogout}>
-          <img css={img} src="/door.svg" />
+          <img css={img} src={DoorImg} />
           ログアウトする
         </Button>
       </div>
