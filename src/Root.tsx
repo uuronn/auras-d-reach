@@ -9,6 +9,8 @@ import {
 import Home from "./pages";
 import "./reset.css";
 import LoginPage from "./pages/auth/login";
+import Turu from "./pages/turu";
+import Takuaki from "./pages/takuaki";
 import { AuthProvider } from "./context/AuthProvider";
 import { Room1 } from "./pages/room1";
 import { Room2 } from "./pages/room2";
@@ -26,6 +28,12 @@ const router = createBrowserRouter(
       <Route path="/room3" element={<Room3 />} />
 
       <Route path="/issei" element={<Issei />} />
+
+      <Route path="aaa" element={<div>aaabbb</div>} />
+
+      <Route path="turu" element={<Turu />} />
+
+      <Route path="takuaki" element={<Takuaki/>} />
     </Route>
   )
 );
