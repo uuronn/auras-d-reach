@@ -1,12 +1,12 @@
 import { Button } from "~/components/Button";
 import { useGoogleLogin } from "./hooks/useGoogleLogin";
-import { useGithubLogin } from "./hooks/useGithubLogin";
+import { useLogout } from "./hooks/useLogout";
 const LoginPage = () => {
   return (
     <main>
       <div>ログインしてください。</div>
       <Button onClick={useGoogleLogin}>Googleでログイン</Button>
-      <Button onClick={useGithubLogin}>GitHubでログイン</Button>
+      <Button onClick={useLogout}>ログアウトする</Button>
     </main>
   );
 };
