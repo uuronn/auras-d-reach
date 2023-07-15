@@ -7,7 +7,7 @@ function Takuaki() {
   return (
     <div>
         <div>takuaki</div>
-        <Room personNumbers={1} roomNumber={1}/>
+        <Room personNumbers={5} roomNumber={1}/>
         <PlayerName playerName="takuaki"/>
         <OnlineCounter onlineNumber={2}/>
         <Logout/>
