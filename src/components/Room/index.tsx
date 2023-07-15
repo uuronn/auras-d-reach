@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import { useState } from "react";
+import { ComponentPropsWithRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const personNumber = css`
@@ -21,7 +21,12 @@ justify-content: end;
 align-items: center;
 `;
 
-function Room({ personNumbers, roomNumber }: any) {
+interface Person extends ComponentPropsWithRef<"p"> {
+  personNumbers: number;
+  roomNumber:number;
+}
+
+function Room({ personNumbers, roomNumber }: Person) {
   const [isHover, setIsHover] = useState(false);
 
   const handleMouseEnter = () => {
