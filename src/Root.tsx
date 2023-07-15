@@ -6,17 +6,17 @@ import {
   createBrowserRouter,
   createRoutesFromElements
 } from "react-router-dom";
-import Home from "./Home";
+import Home from "./pages";
 import "./reset.css";
 import LoginPage from "./pages/auth/login";
 import Takuaki from "./pages/takuaki";
-
+import { AuthProvider } from "./context/AuthProvider";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
-      <Route path="auth/login" element={<LoginPage />} />
       <Route path="/" element={<Home />} />
+      <Route path="auth/login" element={<LoginPage />} />
       <Route path="aaa" element={<div>aaabbb</div>} />
       <Route path="takuaki" element={<Takuaki/>} />
     </Route>
@@ -30,7 +30,9 @@ if (root) {
 
   app.render(
     <StrictMode>
-      <RouterProvider router={router} />
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
     </StrictMode>
   );
 }
