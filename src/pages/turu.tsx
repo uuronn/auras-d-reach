@@ -1,15 +1,10 @@
 import { css } from "@emotion/react";
-import { Lyric } from "~/components/Lyric";
-
-const test = css`
-  background-color: red;
-`;
+import { RankingName } from "~/components/RankingName";
 
 export const Turu = () => {
   return (
     <div>
-      <Lyric lyric="今日はうまく笑えないいっせい" />
-      <Lyric lyric="あああ" css={test} />
+      <RankingName RankingName="issei" />
     </div>
   );
 };
