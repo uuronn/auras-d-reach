@@ -6,7 +6,7 @@ interface RankingProps extends ComponentPropsWithRef<"p"> {
   point: number;
 }
 const RankingNameCSS = css`
-  background-color: silver;
+  background-color: #ddd;
   font-size: 40px;
   padding: 5px;
   width: 65%;
@@ -16,7 +16,7 @@ const RankingNameCSS = css`
   font-weight: bold;
 `;
 const pointCSS = css`
-  background-color: #dddddd;
+  background-color: #eee;
   font-size: 40px;
   padding: 5px;
   margin: 10px;
@@ -24,16 +24,19 @@ const pointCSS = css`
   display: inline-block;
   text-align: center;
 `;
+const Ranking = css`
+display: flex;
+`;
 
-export const Ranking = ({ RankingName, point, ...props }: RankingProps) => {
+export const RankingData = ({ RankingName, point, ...props }: RankingProps) => {
   return (
-    <>
+    <div css={Ranking}>
       <p css={RankingNameCSS} {...props}>
         {RankingName}
       </p>
       <p css={pointCSS} {...props}>
         {point}point
       </p>
-    </>
+    </div>
   );
 };

@@ -1,9 +1,9 @@
-import { Ranking } from "~/components/Ranking";
+import { RankingData } from "~/components/Ranking";
 
 export const Turu = () => {
   return (
     <div>
-      <Ranking RankingName="isseiissei" point={0} />
+      <RankingData RankingName="isseiissei" point={0} />
     </div>
   );
 };
