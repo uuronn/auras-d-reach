@@ -9,6 +9,8 @@ import {
 import Home from "./Home";
 import "./reset.css";
 import LoginPage from "./pages/auth/login";
+import Takuaki from "./pages/takuaki";
+
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -16,6 +18,7 @@ const router = createBrowserRouter(
       <Route path="auth/login" element={<LoginPage />} />
       <Route path="/" element={<Home />} />
       <Route path="aaa" element={<div>aaabbb</div>} />
+      <Route path="takuaki" element={<Takuaki/>} />
     </Route>
   )
 );
