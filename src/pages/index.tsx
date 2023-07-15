@@ -1,49 +1,42 @@
 import { css } from "@emotion/react";
 import { Button } from "../components/Button";
 import { useGoogleLogin } from "./auth/login/hooks/useGoogleLogin";
-import { useEffect, useState } from "react";
 import { useAuthContext } from "../context/hooks/useAuthContext";
-import { onSnapshot, doc, setDoc, getDoc } from "firebase/firestore";
-import { db } from "firebaseConfig";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-  const [test, setTest] = useState<boolean>();
+  // const [test, setTest] = useState<boolean>();
+
+  const navigate = useNavigate();
 
   const { user } = useAuthContext();
-  useEffect(() => {
-    (async () => {
-      const res = await getDoc(doc(db, "users", "test-id"));
-      if (res.exists()) setTest(res.data()?.isAnswer);
-    })();
-  }, []);
 
-  useEffect(() => {
-    console.log("agjjbb", test);
-  }, [test]);
-
-  const click = async () => {
-    await setDoc(doc(db, "users", "test-id"), {
-      isAnswer: true
-    });
-  };
+  if (!user) return <div>loading...</div>;
   // useEffect(() => {
-  //   const timer = setInterval(() => {
-  //     const q = query(collection(db, "users"), where("isOnline", "==", true));
-
-  //     getDocs(q).then((snapshot) => setOnlineUser(snapshot.docs.length));
-  //   }, 5000);
-
-  //   return () => {
-  //     clearInterval(timer);
-  //   };
+  //   (async () => {
+  //     const res = await getDoc(doc(db, "users", "test-id"));
+  //     if (res.exists()) setTest(res.data()?.isAnswer);
+  //   })();
   // }, []);
 
-  onSnapshot(doc(db, "users", "test-id"), (doc) => {
-    console.log("Current data: ", doc.data()?.isAnswer);
-    setTest(doc.data()?.isAnswer);
-  });
+  // useEffect(() => {
+  //   console.log("agjjbb", test);
+  // }, [test]);
 
-  // console.log(unsub);
+  // const click = async () => {
+  //   await setDoc(doc(db, "users", "test-id"), {
+  //     isAnswer: true
+  //   });
+  // };
+
+  // onSnapshot(doc(db, "users", "test-id"), (doc) => {
+  //   console.log("Current data: ", doc.data()?.isAnswer);
+  //   setTest(doc.data()?.isAnswer);
+  // });
+
+  const onClick = (path: string) => {
+    navigate(path);
+  };
 
   return (
     <div
@@ -51,7 +44,12 @@ const Home = () => {
         background: pink;
       `}
     >
-      {test && (
+      <button onClick={() => onClick("room1")}>Room1へ</button>
+      <button onClick={() => onClick("room2")} disabled>
+        Room2へ
+      </button>
+      <button onClick={() => onClick("room3")}>Room3へ</button>
+      {/* {test && (
         <div
           css={css`
             background: green;
@@ -64,10 +62,10 @@ const Home = () => {
         >
           ああっfじょじゃ；fjさ；fじゃs；lfj；ｆ
         </div>
-      )}
+      )} */}
       hello world
-      <p>name: {user?.displayName}</p>
-      <Button onClick={click}>答える</Button>
+      {/* <p>name: {user?.displayName}</p>
+      <Button onClick={click}>答える</Button> */}
       <Button onClick={useGoogleLogin}>test</Button>
     </div>
   );
