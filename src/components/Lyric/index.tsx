@@ -11,7 +11,7 @@ const lyriccss = css`
   box-shadow: 0 10px 6px -6px #777;
   width: fit-content;
   background-color: white;
-  margin: 20px;
+  margin: 22px;
   padding: 10px;
 `;
 
