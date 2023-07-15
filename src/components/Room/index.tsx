@@ -1,6 +1,7 @@
 import { css } from "@emotion/react";
 import { ComponentPropsWithRef } from "react";
 import { useNavigate } from "react-router-dom";
+import homeImg from "../../assets/home.svg";
 
 const personNumber = css`
   position: absolute;
@@ -36,7 +37,7 @@ function Room({ personNumbers, roomNumber }: Person) {
 
   const room = css`
     &:hover {
-      background-color: #eee;
+      background-color:${disable ? "":"#eee"};
     }
     width: 250px;
     height: 220px;
@@ -57,7 +58,7 @@ function Room({ personNumbers, roomNumber }: Person) {
     >
       <p css={personNumber}>{personNumbers}/5</p>
       <div css={rooms}>
-        <img src="../../../public/home.svg" alt="roomImg" css={roomImg} />
+        <img src={homeImg} alt="roomImg" css={roomImg} />
         <p>ルーム{roomNumber}</p>
       </div>
     </button>
