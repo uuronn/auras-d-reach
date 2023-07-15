@@ -1,4 +1,3 @@
-import React from 'react'
 import PlayerName from '~/components/PlayerName'
 
 function Takuaki() {
