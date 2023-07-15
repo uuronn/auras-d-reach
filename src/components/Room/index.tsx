@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import { ComponentPropsWithRef, useState } from "react";
+import { ComponentPropsWithRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 const personNumber = css`
@@ -13,29 +13,21 @@ const roomImg = css`
 `;
 
 const rooms = css`
-display: flex;
-width: 100%;
-height: 100%;
-flex-direction: column;
-justify-content: end;
-align-items: center;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: end;
+  align-items: center;
 `;
 
 interface Person extends ComponentPropsWithRef<"button"> {
   personNumbers: number;
-  roomNumber:number;
+  roomNumber: number;
 }
 
 function Room({ personNumbers, roomNumber }: Person) {
-  const [isHover, setIsHover] = useState(false);
 
-  const handleMouseEnter = () => {
-    setIsHover(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsHover(false);
-  };
   let disable = personNumbers >= 5;
   const navigate = useNavigate();
   const clickHandler = () => {
@@ -43,15 +35,18 @@ function Room({ personNumbers, roomNumber }: Person) {
   };
 
   const room = css`
+    &:hover {
+      background-color: #eee;
+    }
     width: 250px;
     height: 220px;
-    background-color: ${isHover ? "#eee" : ""};
     border-radius: 16px;
     border: 1px solid #111;
     position: relative;
     padding: 1%;
     display: block;
     margin: 2% 0;
+    transition: 0.2s;
   `;
 
   return (
@@ -59,8 +54,6 @@ function Room({ personNumbers, roomNumber }: Person) {
       css={room}
       onClick={clickHandler}
       disabled={disable}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
     >
       <p css={personNumber}>{personNumbers}/5</p>
       <div css={rooms}>

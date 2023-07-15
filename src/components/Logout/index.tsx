@@ -1,31 +1,18 @@
 import { css } from "@emotion/react";
-import { useState } from "react";
 import { useLogout } from "~/pages/auth/login/hooks/useLogout";
 
 function Logout() {
-  const [isHover, setIsHover] = useState(false);
-
-  const handleMouseEnter = () => {
-    setIsHover(true);
-  };
-
   const logoutStyle = css`
+    &:hover {
+      background-color: #eee;
+    }
     padding: 11px 16px;
     border-radius: 999px;
     border: 1px solid #111;
-    background-color: ${isHover ? "#eee" : ""};
+    transition: 0.2s;
   `;
-
-  const handleMouseLeave = () => {
-    setIsHover(false);
-  };
   return (
-    <button
-      css={logoutStyle}
-      onClick={useLogout}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
+    <button css={logoutStyle} onClick={useLogout}>
       ログアウト
     </button>
   );
