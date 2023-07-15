@@ -1,10 +1,9 @@
-import { css } from "@emotion/react";
-import { RankingName } from "~/components/RankingName";
+import { Ranking } from "~/components/Ranking";
 
 export const Turu = () => {
   return (
     <div>
-      <RankingName RankingName="issei" />
+      <Ranking RankingName="isseiissei" point={0} />
     </div>
   );
 };
