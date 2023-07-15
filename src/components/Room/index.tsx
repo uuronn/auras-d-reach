@@ -21,7 +21,7 @@ justify-content: end;
 align-items: center;
 `;
 
-interface Person extends ComponentPropsWithRef<"p"> {
+interface Person extends ComponentPropsWithRef<"button"> {
   personNumbers: number;
   roomNumber:number;
 }
