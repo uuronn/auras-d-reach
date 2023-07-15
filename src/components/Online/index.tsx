@@ -22,7 +22,7 @@ interface OnlineNumbers extends ComponentPropsWithRef<"p"> {
   onlineNumber: number;
 }
 function OnlineCounter({ onlineNumber }: OnlineNumbers) {
-  let onlineNumberStyle = onlineNumber >= 2 ? "#66FF33" : "";
+  const onlineNumberStyle = onlineNumber >= 2 ? "#66FF33" : "";
   return (
     <div css={onlines}>
       <div
