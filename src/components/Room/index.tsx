@@ -50,6 +50,8 @@ function Room({ personNumbers, roomNumber }: Person) {
     border: 1px solid #111;
     position: relative;
     padding: 1%;
+    display: block;
+    margin: 2% 0;
   `;
 
   return (
