@@ -37,7 +37,7 @@ const Home = () => {
 
   if (!user) {
     navigate("/auth/login");
-    return <div>loadinああああg...</div>;
+    return <div>loading...</div>;
   }
 
   const onClick = (path: string) => {
