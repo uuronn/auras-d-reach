@@ -1,4 +1,4 @@
-import { RankingData } from "~/components/Ranking";
+import { RankingData } from "~/components/RankingData";
 
 export const Turu = () => {
   return (
