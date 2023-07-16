@@ -42,7 +42,7 @@ export const LYRICS: Lyrics[] = [
   {
     title: "インフィニティ",
     lyric:
-      "蹴とばした石が転がる 道意地っ張りな君 似てる同士素直になれずに I will rememberrecord スニーカーと真似をした 古いもの新しいもの分け隔てもなく"
+      "蹴とばした石が転がる 道意地っ張りな君 似てる同士素直になれずに I will remember record スニーカーと真似をした 古いもの新しいもの分け隔てもなく"
   },
   {
     title: "桜晴",
