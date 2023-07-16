@@ -9,7 +9,7 @@ interface PlayerNameProps extends ComponentPropsWithRef<"div"> {
 
 const player = css`
   color: #eee;
-  padding: 18px;
+  padding: 6px;
   background-color: #444;
   width: fit-content;
   border-radius: 5px;
@@ -18,7 +18,6 @@ const player = css`
   justify-content: center;
   align-items: center;
   font-size: 70%;
-  padding-left: 5%;
 `;
 
 const CheckImg = css`
