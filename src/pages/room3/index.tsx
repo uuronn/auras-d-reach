@@ -4,7 +4,7 @@ import { Lyric } from "~/components/Lyric";
 import { PlayerName } from "~/components/PlayerName";
 import { PLAYERS, titles } from "~/data";
 
-let answers = ["A", "B", "C", "D"];
+const answers = ["A", "B", "C", "D"];
 
 const MAINCSS = css`
   display: flex;
