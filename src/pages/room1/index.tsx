@@ -21,7 +21,7 @@ import { CurrentRoomQuestion, Room } from "~/types";
 export const Room1 = (): JSX.Element => {
   const { user } = useAuthContext();
   const [isAllAnswer, setIsAllAnswer] = useState<boolean>(false);
-  const [currentQuestion, setCurrentQuestion] = useState<string>("");
+  // const [currentQuestion, setCurrentQuestion] = useState<string>("");
   const [currentRoomQuestion, setCurrentRoomQuestion] =
     useState<CurrentRoomQuestion>();
   const [over, setOver] = useState(true);
@@ -86,7 +86,7 @@ export const Room1 = (): JSX.Element => {
           setCurrentRoomQuestion(
             doc.data().currentRoomQuestion as CurrentRoomQuestion
           );
-          setCurrentQuestion(doc.data().currentLyric);
+          // setCurrentQuestion(doc.data().currentLyric);
         }
 
         // TODO: 配列が空だったら以下の処理は走らせない。
