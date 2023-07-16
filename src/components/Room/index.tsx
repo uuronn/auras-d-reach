@@ -28,16 +28,16 @@ interface Person extends ComponentPropsWithRef<"button"> {
 }
 
 function Room({ personNumbers, roomNumber }: Person) {
-
-  let disable = personNumbers >= 5;
+  const disable = personNumbers >= 5;
   const navigate = useNavigate();
+  
   const clickHandler = () => {
-    navigate("/room1");
+    disable ? alert("人数は既に上限に達しています") : navigate("/room1");
   };
 
   const room = css`
     &:hover {
-      background-color:${disable ? "":"#eee"};
+      background-color: ${disable ? "" : "#eee"};
     }
     width: 250px;
     height: 220px;
@@ -48,14 +48,11 @@ function Room({ personNumbers, roomNumber }: Person) {
     display: block;
     margin: 2% 0;
     transition: 0.2s;
+    cursor: ${disable ? "default" : "pointer"};
   `;
 
   return (
-    <button
-      css={room}
-      onClick={clickHandler}
-      disabled={disable}
-    >
+    <button css={room} onClick={clickHandler}>
       <p css={personNumber}>{personNumbers}/5</p>
       <div css={rooms}>
         <img src={homeImg} alt="roomImg" css={roomImg} />
