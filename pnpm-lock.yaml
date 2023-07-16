@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 dependencies:
   '@emotion/babel-plugin':
     specifier: ^11.11.0
@@ -22,6 +26,9 @@ dependencies:
   react-router-dom:
     specifier: ^6.12.0
     version: 6.12.0(react-dom@18.2.0)(react@18.2.0)
+  three:
+    specifier: ^0.154.0
+    version: 0.154.0
   vite-tsconfig-paths:
     specifier: ^4.2.0
     version: 4.2.0(typescript@5.0.2)(vite@4.3.9)
@@ -33,6 +40,9 @@ devDependencies:
   '@types/react-dom':
     specifier: ^18.0.11
     version: 18.0.11
+  '@types/three':
+    specifier: ^0.154.0
+    version: 0.154.0
   '@typescript-eslint/eslint-plugin':
     specifier: ^5.59.0
     version: 5.59.0(@typescript-eslint/parser@5.59.0)(eslint@8.38.0)(typescript@5.0.2)
@@ -382,7 +392,7 @@ packages:
     engines: {node: '>=6.0.0'}
     hasBin: true
     dependencies:
-      '@babel/types': 7.22.4
+      '@babel/types': 7.22.5
     dev: false
 
   /@babel/plugin-bugfix-safari-id-destructuring-collision-in-function-expression@7.22.5(@babel/core@7.22.8):
@@ -2930,6 +2940,10 @@ packages:
       '@swc/core-win32-x64-msvc': 1.3.62
     dev: false
 
+  /@tweenjs/tween.js@18.6.4:
+    resolution: {integrity: sha512-lB9lMjuqjtuJrx7/kOkqQBtllspPIN+96OvTCeJ2j5FEzinoAXTdAMFnDAQT1KVPRlnYfBrqxtqP66vDM40xxQ==}
+    dev: true
+
   /@types/istanbul-lib-coverage@2.0.4:
     resolution: {integrity: sha512-z/QT1XN4K4KYuslS23k62yDIDLwLFkzxOuMplDtObz0+y7VqJCaO2o+SPwHCvLFZh7xazvvoor2tA/hPz9ee7g==}
     dev: false
@@ -2988,6 +3002,25 @@ packages:
   /@types/stack-utils@2.0.1:
     resolution: {integrity: sha512-Hl219/BT5fLAaz6NDkSuhzasy49dwQS/DSdu4MdggFB8zcXv7vflBI3xp7FEmkmdDkBUI2bPUNeMttp2knYdxw==}
     dev: false
+
+  /@types/stats.js@0.17.0:
+    resolution: {integrity: sha512-9w+a7bR8PeB0dCT/HBULU2fMqf6BAzvKbxFboYhmDtDkKPiyXYbjoe2auwsXlEFI7CFNMF1dCv3dFH5Poy9R1w==}
+    dev: true
+
+  /@types/three@0.154.0:
+    resolution: {integrity: sha512-IioqpGhch6FdLDh4zazRn3rXHj6Vn2nVOziJdXVbJFi9CaI65LtP9qqUtpzbsHK2Ezlox8NtsLNHSw3AQzucjA==}
+    dependencies:
+      '@tweenjs/tween.js': 18.6.4
+      '@types/stats.js': 0.17.0
+      '@types/webxr': 0.5.2
+      fflate: 0.6.10
+      lil-gui: 0.17.0
+      meshoptimizer: 0.18.1
+    dev: true
+
+  /@types/webxr@0.5.2:
+    resolution: {integrity: sha512-szL74BnIcok9m7QwYtVmQ+EdIKwbjPANudfuvDrAF8Cljg9MKUlIoc1w5tjj9PMpeSH3U1Xnx//czQybJ0EfSw==}
+    dev: true
 
   /@types/yargs-parser@21.0.0:
     resolution: {integrity: sha512-iO9ZQHkZxHn4mSakYV0vFHAVDyEOIJQrV2uZ06HxEPcx+mt8swXoZHIbaaJ2crJYFfErySgktuTZ3BeLz+XmFA==}
@@ -4251,6 +4284,10 @@ packages:
       bser: 2.1.1
     dev: false
 
+  /fflate@0.6.10:
+    resolution: {integrity: sha512-IQrh3lEPM93wVCEczc9SaAOvkmcoQn/G8Bo1e8ZPlY3X3bnAxWaBdvTdvM1hP62iZp0BXWDy4vTAy4fF0+Dlpg==}
+    dev: true
+
   /file-entry-cache@6.0.1:
     resolution: {integrity: sha512-7Gps/XWymbLk2QLYK4NzpMOrYjMhdIxXuIvy2QBsLE6ljuodKvdkWs/cpyJJ3CVIVpH0Oi1Hvg1ovbMzLdFBBg==}
     engines: {node: ^10.12.0 || >=12.0.0}
@@ -4835,7 +4872,7 @@ packages:
     resolution: {integrity: sha512-KoAW2zAmNSd3Gk88uJ56qXUWbFk787QKmjjJVOjtGFmmGSZgDBrlIL4AfQw1xyMYPNVD7dNInfIbur9B2rd/wQ==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     dependencies:
-      '@babel/code-frame': 7.21.4
+      '@babel/code-frame': 7.22.5
       '@jest/types': 29.6.1
       '@types/stack-utils': 2.0.1
       chalk: 4.1.2
@@ -5065,6 +5102,10 @@ packages:
       type-check: 0.4.0
     dev: true
 
+  /lil-gui@0.17.0:
+    resolution: {integrity: sha512-MVBHmgY+uEbmJNApAaPbtvNh1RCAeMnKym82SBjtp5rODTYKWtM+MXHCifLe2H2Ti1HuBGBtK/5SyG4ShQ3pUQ==}
+    dev: true
+
   /lines-and-columns@1.2.4:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
     dev: false
@@ -5195,6 +5236,10 @@ packages:
   /merge2@1.4.1:
     resolution: {integrity: sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==}
     engines: {node: '>= 8'}
+    dev: true
+
+  /meshoptimizer@0.18.1:
+    resolution: {integrity: sha512-ZhoIoL7TNV4s5B6+rx5mC//fw8/POGyNxS/DZyCJeiZ12ScLfVwRE/GfsxwiTkMYYD5DmK2/JXnEVXqL4rF+Sw==}
     dev: true
 
   /metro-babel-transformer@0.73.10:
@@ -5374,7 +5419,7 @@ packages:
     resolution: {integrity: sha512-NAGv14701p/YaFZ76KzyPkacBw/QlEJF1f8elfs23N1tC33YyKLDKvPAzFJiYqjdcFvuuuDCA8JCXd2TgLxNPw==}
     dependencies:
       '@babel/traverse': 7.22.8
-      '@babel/types': 7.22.4
+      '@babel/types': 7.22.5
       invariant: 2.2.4
       metro-symbolicate: 0.73.10
       nullthrows: 1.1.1
@@ -6191,7 +6236,7 @@ packages:
     dependencies:
       object-assign: 4.1.1
       react: 18.2.0
-      react-is: 17.0.2
+      react-is: 18.2.0
     dev: false
 
   /react@18.2.0:
@@ -6756,6 +6801,10 @@ packages:
   /text-table@0.2.0:
     resolution: {integrity: sha512-N+8UisAXDGk8PFXP4HAzVR9nbfmVJ3zYLAWiTIoqC5v5isinhr+r5uaO8+7r3BMfuNIufIsA7RdpVgacC2cSpw==}
     dev: true
+
+  /three@0.154.0:
+    resolution: {integrity: sha512-Uzz8C/5GesJzv8i+Y2prEMYUwodwZySPcNhuJUdsVMH2Yn4Nm8qlbQe6qRN5fOhg55XB0WiLfTPBxVHxpE60ug==}
+    dev: false
 
   /throat@5.0.0:
     resolution: {integrity: sha512-fcwX4mndzpLQKBS1DVYhGAcYaYt7vsHNIvQV+WXMvnow5cgjPphq5CaayLaGsjRdSCKZFNGt7/GYAuXaNOiYCA==}

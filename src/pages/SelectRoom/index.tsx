@@ -4,9 +4,10 @@ import OnlineCounter from "~/components/Online";
 import Room from "~/components/Room";
 
 const whole = css`
-  width: 60%;
+  width: 80%;
   margin: 0 auto;
-  @media (max-width:500px){
+
+  @media (max-width: 500px) {
     width: 80%;
   }
 `;
@@ -15,15 +16,20 @@ const header = css`
   display: flex;
   justify-content: space-around;
   margin-top: 2%;
-  @media (max-width:500px){
+  @media (max-width: 500px) {
     margin: 5% 0;
   }
 `;
 
 const room = css`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
+  gap: 2%;
+  justify-content: center;
+  @media (max-width: 500px) {
+   flex-direction: column;
+  }
 `;
 
 function SelectRoom() {
