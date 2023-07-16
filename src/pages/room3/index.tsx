@@ -24,7 +24,7 @@ export const Room3 = () => {
       <div css={centerCSS}>
         {PLAYERS.map((player) => (
           <div css={playerCSS}>
-            <PlayerName playerName={player} />
+            <PlayerName playerName={player} isAnswer />
           </div>
         ))}
       </div>

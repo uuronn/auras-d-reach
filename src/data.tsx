@@ -1,4 +1,9 @@
-let LYRICS = [
+type Lyrics = {
+  title: string;
+  lyric: string;
+};
+
+export const LYRICS: Lyrics[] = [
   {
     title: "ドライフラワー",
     lyric:
@@ -51,6 +56,4 @@ let LYRICS = [
   }
 ];
 
-let PLAYERS = ["PLAYER1", "PLAYER2", "PLAYER3", "AAAAAAAA1", "AAA2"];
-
-export default PLAYERS;
+export const PLAYERS = ["PLAYER1", "PLAYER2", "PLAYER3", "AAAAAAAA1", "AAA2"];
