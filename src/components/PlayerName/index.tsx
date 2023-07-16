@@ -9,25 +9,31 @@ interface PlayerNameProps extends ComponentPropsWithRef<"div"> {
 
 const player = css`
   color: #eee;
-  padding: 13px;
+  padding: 18px;
   background-color: #444;
   width: fit-content;
-  border-radius: 16px;
+  border-radius: 5px;
   display: flex;
-  margin: 10px;
+  margin: 2px;
+  justify-content: center;
+  align-items: center;
+  font-size: 70%;
+  padding-left: 5%;
 `;
 
 const CheckImg = css`
-  /* display: block; */
-  /* height: 24px; */
   width: 24px;
   margin-left: 4px;
 `;
 
-export function PlayerName({ playerName, isAnswer }: PlayerNameProps) {
+export function PlayerName({
+  playerName,
+  isAnswer,
+  ...props
+}: PlayerNameProps) {
   return (
-    <div css={player}>
-      <p>{playerName}</p>
+    <div css={player} {...props}>
+      {playerName}
       {isAnswer ? <img src={Check} alt="" css={CheckImg} /> : ""}
     </div>
   );

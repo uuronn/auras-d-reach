@@ -6,13 +6,16 @@ interface LyricProps extends ComponentPropsWithRef<"p"> {
 }
 
 const lyriccss = css`
-  font-size: 40px;
-  margin: 20px;
+  font-size: 30px;
+  font-weight: 5px;
   box-shadow: 0 10px 6px -6px #777;
-  width: fit-content;
+  width: 80%;
   background-color: white;
-  margin: 22px;
-  padding: 10px;
+  font-weight: bold;
+  padding: 2%;
+  margin: 10px;
+  text-align: center;
+  justify-content: center;
 `;
 
 export const Lyric = ({ lyric, ...props }: LyricProps) => {
