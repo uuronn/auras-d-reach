@@ -13,6 +13,7 @@ const button = css`
   border-radius: 14px;
   font-size: 16px;
   background: #bebebe;
+  justify-content: center;
 `;
 
 export const Button = ({ children, ...props }: ButtonProps) => {

@@ -57,3 +57,5 @@ export const LYRICS: Lyrics[] = [
 ];
 
 export const PLAYERS = ["PLAYER1", "PLAYER2", "PLAYER3", "AAAAAAAA1", "AAA2"];
+
+export const titles = ["ドライフラワー", "ペテルギウス", "かくれんぼ", "レオ"];
