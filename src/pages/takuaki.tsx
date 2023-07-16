@@ -8,7 +8,7 @@ function Takuaki() {
     <div>
         <div>takuaki</div>
         <Room personNumbers={5} roomNumber={1}/>
-        <PlayerName playerName="takuaki"/>
+        <PlayerName playerName="takuaki" isAnswer={true}/>
         <OnlineCounter onlineNumber={2}/>
         <Logout/>
     </div>
