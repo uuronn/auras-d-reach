@@ -24,3 +24,9 @@ export type UserStatus = {
   name: string;
   isAnswer: boolean;
 };
+
+export type ResultUser = {
+  id: string;
+  name?: string;
+  point: number;
+};

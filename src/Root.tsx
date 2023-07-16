@@ -27,14 +27,14 @@ const router = createBrowserRouter(
       <Route path="/" element={<Home />} />
       <Route path="auth/login" element={<LoginPage />} />
 
-      <Route path="/room1" element={<Room1 />} />
-      <Route path="/room2" element={<Room2 />} />
-      <Route path="/room3" element={<Room3 />} />
-      <Route path="/ranking" element={<Ranking />} />
-      <Route path="/result" element={<Result />} />
-      <Route path="/select" element={<SelectRoom />} />
+      <Route path="room1" element={<Room1 />} />
+      <Route path="room2" element={<Room2 />} />
+      <Route path="room3" element={<Room3 />} />
+      <Route path="ranking" element={<Ranking />} />
+      <Route path="room1/result" element={<Result />} />
+      <Route path="select" element={<SelectRoom />} />
 
-      <Route path="/issei" element={<Issei />} />
+      <Route path="issei" element={<Issei />} />
 
       <Route path="aaa" element={<div>aaabbb</div>} />
 
@@ -42,7 +42,6 @@ const router = createBrowserRouter(
 
       <Route path="takuaki" element={<Takuaki />} />
       <Route path="box" element={<Box />} />
-
     </Route>
   )
 );

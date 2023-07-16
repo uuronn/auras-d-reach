@@ -40,7 +40,8 @@ const Home = () => {
 
           await updateDoc(roomListDocRef("room1"), {
             answerList,
-            userStatusList
+            userStatusList,
+            questionCounter: 0
           });
         }
       })();
@@ -53,7 +54,7 @@ const Home = () => {
   }
 
   const onClick = (path: string) => {
-    navigate(path);
+    location.href = path;
   };
 
   return (

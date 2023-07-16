@@ -10,6 +10,7 @@ import {
 } from "firebase/firestore";
 import { db } from "firebaseConfig";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "~/components/Button";
 import { PlayerName } from "~/components/PlayerName";
 import { useAuthContext } from "~/context/hooks/useAuthContext";
@@ -32,6 +33,7 @@ export const Room1 = (): JSX.Element => {
   const [userStatusList, setUserStatusList] = useState<UserStatus[]>([]);
   const randomCurrentQuestion = LYRICS[randomIndex];
   const [currentPoint, setCurrentPoint] = useState<number>(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (user) {
@@ -122,8 +124,10 @@ export const Room1 = (): JSX.Element => {
           JSON.stringify(usersDocs.docs.map((doc) => doc.id).sort())
         ) {
           const userDoc = await getDoc(usersDocRef(user.uid));
+          const room1Doc = await getDoc(roomListDocRef("room1"));
 
           if (!userDoc.exists()) return console.log("終了");
+          if (!room1Doc.exists()) return console.log("終了");
 
           await updateDoc(usersDocRef(user.uid), {
             room1: {
@@ -156,6 +160,14 @@ export const Room1 = (): JSX.Element => {
           // );
           // console.log("どうですか");
           // console.log(doc.data()?.currentLyric);
+
+          if (room1Doc.data().questionCounter <= 10) {
+            await updateDoc(roomListDocRef("room1"), {
+              questionCounter: room1Doc.data().questionCounter + 1
+            });
+          } else {
+            navigate("/room1/result");
+          }
         }
 
         setIsAllAnswer(
