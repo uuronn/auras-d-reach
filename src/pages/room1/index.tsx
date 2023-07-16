@@ -16,7 +16,7 @@ import { LYRICS } from "~/data";
 import { createDocRef } from "~/firebase/store/createDocRef";
 import { resetAnswer } from "~/firebase/store/test/resetAnswer";
 import { updateAnswer } from "~/firebase/store/updateAnswer";
-import { CurrentRoomQuestion, Room } from "~/types";
+import { CurrentRoomQuestion, Room, UserStatus } from "~/types";
 
 export const Room1 = (): JSX.Element => {
   const { user } = useAuthContext();
@@ -34,8 +34,28 @@ export const Room1 = (): JSX.Element => {
   useEffect(() => {
     if (user) {
       (async () => {
+        const room1Doc = await getDoc(roomListDocRef("room1"));
+
+        if (!room1Doc.exists()) return console.log("room1Doc");
+
         await updateDoc(usersDocRef(user.uid), {
           currentRoom: 1
+        });
+
+        if (!room1Doc.exists) return console.log("ああああ");
+
+        const userStatusList: UserStatus[] = room1Doc.data()?.userStatusList;
+
+        if (
+          !userStatusList
+            .map((userStatus) => userStatus.name)
+            .includes(user.uid)
+        ) {
+          userStatusList.push({ name: user.uid, isAnswer: false });
+        }
+
+        await updateDoc(roomListDocRef("room1"), {
+          userStatusList: userStatusList
         });
       })();
     }
