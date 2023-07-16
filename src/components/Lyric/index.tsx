@@ -16,8 +16,6 @@ const lyriccss = css`
 `;
 
 export const Lyric = ({ lyric, ...props }: LyricProps) => {
-  console.log(lyric);
-
   return (
     <p css={lyriccss} {...props}>
       {lyric}
