@@ -10,6 +10,10 @@ const LoginBox = css`
   display: flex;
   border: 3px solid #000000;
   border-radius: 20px;
+  @media (max-width:500px){
+    padding: 10px;
+    border: none;
+  }
 `;
 const Main = css`
   height: 100vh;
