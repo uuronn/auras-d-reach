@@ -19,7 +19,6 @@ import { Issei } from "./pages/issei";
 import Ranking from "./pages/Ranking";
 import SelectRoom from "./pages/SelectRoom";
 import Box from "./components/Boxs";
-import Loading from "./components/Loading";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
