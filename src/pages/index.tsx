@@ -3,25 +3,28 @@ import { Button } from "../components/Button";
 import { useGoogleLogin } from "./auth/login/hooks/useGoogleLogin";
 import { useAuthContext } from "../context/hooks/useAuthContext";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { db } from "firebaseConfig";
 
 const Home = () => {
-  // const [test, setTest] = useState<boolean>();
-
   const navigate = useNavigate();
-
   const { user } = useAuthContext();
 
-  if (!user) return <div>loading...</div>;
-  // useEffect(() => {
-  //   (async () => {
-  //     const res = await getDoc(doc(db, "users", "test-id"));
-  //     if (res.exists()) setTest(res.data()?.isAnswer);
-  //   })();
-  // }, []);
+  useEffect(() => {
+    if (user) {
+      (async () => {
+        const res = await getDoc(doc(db, "users", user.uid));
+        console.log("res", res.data());
 
-  // useEffect(() => {
-  //   console.log("agjjbb", test);
-  // }, [test]);
+        await updateDoc(doc(db, "users", user.uid), {
+          currentRoom: null
+        });
+      })();
+    }
+  }, [user]);
+
+  if (!user) return <div>loading...</div>;
 
   // const click = async () => {
   //   await setDoc(doc(db, "users", "test-id"), {

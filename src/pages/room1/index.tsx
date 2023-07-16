@@ -13,9 +13,20 @@ import { db } from "firebaseConfig";
 import { useEffect, useState } from "react";
 import { useAuthContext } from "~/context/hooks/useAuthContext";
 
+const LYRICS = [
+  { title: "ドライフラワー", lyric: "多分私じゃなくて" },
+  { title: "レオ", lyric: "名前はレオ、名前呼んでよ" },
+  { title: "桜晴", lyric: "今日はうまく笑えない" },
+  { title: "タイムマシン", lyric: "タイムマシンに委ねて" },
+  { title: "ミズキリ", lyric: "あなただけが瞳に映るの" },
+  { title: "ビリミリオン", lyric: "それなら倍の100億だそう" }
+];
+
 export const Room1 = (): JSX.Element => {
   const { user } = useAuthContext();
   const [modal, setModal] = useState<boolean>(false);
+  const [currentQuestion, setCurrentQuestion] = useState<string>("");
+  const [over, setOver] = useState(true);
 
   useEffect(() => {
     if (user) {
@@ -28,24 +39,52 @@ export const Room1 = (): JSX.Element => {
   }, [user]);
 
   useEffect(() => {
+    (async () => {
+      const randomIndex = Math.floor(Math.random() * LYRICS.length);
+      const randomLyric = LYRICS[randomIndex].lyric;
+      await updateDoc(doc(db, "roomList", "room1"), {
+        currentLyric: randomLyric
+      });
+    })();
+  }, [modal]);
+
+  useEffect(() => {
     if (user) {
       console.log("userId: ", user.uid);
       const q = query(collection(db, "users"), where("currentRoom", "==", 1));
 
       // room1にいるユーザーリストをリアルタイムで取得
       onSnapshot(q, async (querySnapshot) => {
-        const room1 = await getDoc(doc(db, "roomList", "room1"));
-        console.log(
-          "usersのリアルタイムの中で、roomListを取得",
-          room1.data()?.answerList
-        );
-        const test = await getDoc(doc(db, "users", user.uid));
-        console.log("usersのリアルタイムの中で、ドキュメントを取得", test.id);
+        // const room1 = await getDoc(doc(db, "roomList", "room1"));
 
-        console.log(
-          "usersのonSnapshotの処理が走りました。",
-          querySnapshot.docs.map((doc) => doc.id)
-        );
+        console.log("aafjgjg", querySnapshot.docs.length);
+
+        if (querySnapshot.docs.length === 1) {
+          setOver(true);
+          console.log("aあああああふぁtrueだよよっよよｙ");
+          const randomIndex = Math.floor(Math.random() * LYRICS.length);
+          const randomLyric = LYRICS[randomIndex].lyric;
+          await updateDoc(doc(db, "roomList", "room1"), {
+            currentLyric: randomLyric
+          });
+        }
+
+        if (querySnapshot.docs.length >= 2) {
+          setOver(false);
+        }
+
+        // console.log(
+        //   "usersのリアルタイムの中で、roomListを取得",
+        //   room1.data()?.answerList
+        // );
+
+        // const test = await getDoc(doc(db, "users", user.uid));
+        // console.log("usersのリアルタイムの中で、ドキュメントを取得", test.id);
+
+        // console.log(
+        //   "usersのonSnapshotの処理が走りました。",
+        //   querySnapshot.docs.map((doc) => doc.id)
+        // );
       });
 
       onSnapshot(doc(db, "roomList", "room1"), async (doc) => {
@@ -66,15 +105,27 @@ export const Room1 = (): JSX.Element => {
         //   JSON.stringify(usersDocs.docs.map((doc) => doc.id).sort())
         // );
 
+        // TODO: 配列が空だったら以下の処理は走らせない。
+
+        if (
+          JSON.stringify(doc.data()?.answerList.length) ===
+          JSON.stringify(usersDocs.docs.map((doc) => doc.id).length)
+        ) {
+          console.log(
+            JSON.stringify(doc.data()?.answerList.length) ===
+              JSON.stringify(usersDocs.docs.map((doc) => doc.id).length)
+          );
+
+          console.log("どうですか");
+          console.log(doc.data()?.currentLyric);
+          // const res = await getDoc(doc(db, "users", user.uid));
+          setCurrentQuestion(doc.data()?.currentLyric);
+        }
+
         setModal(
           JSON.stringify(doc.data()?.answerList.sort()) ===
             JSON.stringify(usersDocs.docs.map((doc) => doc.id).sort())
         );
-
-        // console.log(
-        //   JSON.stringify(doc.data()?.answerList.sort()) ===
-        //     JSON.stringify(usersDocs.docs.map((doc) => doc.id).sort())
-        // );
       });
     }
   }, [user]);
@@ -153,8 +204,10 @@ export const Room1 = (): JSX.Element => {
 
   return (
     <div css={main}>
+      {over && <div css={overlay}>他のユーザーが入るまでお待ちください...</div>}
       こんにちはRoom1です
       <p>{user.uid}</p>
+      <p>現在の問題: {currentQuestion}</p>
       {modal && <div css={modalStyle}>全員の回答が完了しました</div>}
       <button onClick={updateAnswer}>A. ドライフラワー</button>
       <button onClick={updateAnswer}>B. ピーターパン</button>
@@ -166,6 +219,19 @@ export const Room1 = (): JSX.Element => {
     </div>
   );
 };
+
+const overlay = css`
+  background: black;
+  position: absolute;
+  opacity: 0.7;
+  text-align: center;
+  width: 100vw;
+  height: 100vh;
+  z-index: 100;
+  font-size: 20px;
+  color: white;
+  line-height: 100vh;
+`;
 
 const main = css`
   display: flex;
