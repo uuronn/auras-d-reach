@@ -29,6 +29,7 @@ export const Room1 = (): JSX.Element => {
   const [isAnswer, setIsAnswer] = useState<boolean>(false);
   const randomIndex = Math.floor(Math.random() * LYRICS.length);
   const randomCurrentQuestion = LYRICS[randomIndex];
+  const [currentPoint, setCurrentPoint] = useState<number>(0);
 
   useEffect(() => {
     if (user) {
@@ -146,6 +147,8 @@ export const Room1 = (): JSX.Element => {
 
       console.log("こんにちはですよ", userDoc.data().room1.point + 1);
 
+      setCurrentPoint(userDoc.data().room1.point + 1);
+
       await updateDoc(usersDocRef(user.uid), {
         room1: {
           point: userDoc.data().room1.point + 1,
@@ -156,6 +159,8 @@ export const Room1 = (): JSX.Element => {
     } else {
       // 回答済みにさせる
       updateAnswer(user);
+
+      setCurrentPoint(userDoc.data().room1.point);
 
       console.log("不正解");
       await updateDoc(usersDocRef(user.uid), {
@@ -173,9 +178,10 @@ export const Room1 = (): JSX.Element => {
       {over && <div css={overlay}>他のユーザーが入るまでお待ちください...</div>}
       こんにちはRoom1です
       <p>{user.uid}</p>
-      <p>現在の問題: {currentQuestion}</p>
-      <p>現在の答え: {currentRoomQuestion?.answer}</p>
-      <p>現在の歌詞: {currentRoomQuestion?.lyric}</p>
+      {/* <p>現在の問題: {currentQuestion}</p> */}
+      {/* <p>現在の答え: {currentRoomQuestion?.answer}</p> */}
+      <p>現在の歌詞: {currentRoomQuestion?.lyrics}</p>
+      <p>現在の正解数: {currentPoint}</p>
       {isAllAnswer && <div css={modalStyle}>全員の回答が完了しました</div>}
       {currentRoomQuestion?.choices.map((choice) => (
         <Button

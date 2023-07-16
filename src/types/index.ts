@@ -15,6 +15,6 @@ export type Room = {
 
 export type CurrentRoomQuestion = {
   answer: string;
-  lyric: string;
+  lyrics: string;
   choices: string[];
 };
