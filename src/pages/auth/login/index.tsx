@@ -1,6 +1,5 @@
 import { Button } from "~/components/Button";
 import { useGoogleLogin } from "./hooks/useGoogleLogin";
-import { useLogout } from "./hooks/useLogout";
 import { css } from "@emotion/react";
 import googleImg from "../../../assets/google.svg";
 import { useAuthContext } from "~/context/hooks/useAuthContext";
@@ -56,10 +55,6 @@ const LoginPage = () => {
         <Button css={contents} onClick={useGoogleLogin}>
           <img css={img} src={googleImg} />
           Googleでログイン
-        </Button>
-        <Button css={contents} onClick={useLogout}>
-          <img css={img} src="/src/assets/door.svg" />
-          ログアウトする
         </Button>
       </div>
     </main>
