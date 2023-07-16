@@ -19,6 +19,7 @@ import { Issei } from "./pages/issei";
 import Ranking from "./pages/Ranking";
 import SelectRoom from "./pages/SelectRoom";
 import Box from "./components/Boxs";
+import Result from "./pages/Result";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -30,6 +31,7 @@ const router = createBrowserRouter(
       <Route path="/room2" element={<Room2 />} />
       <Route path="/room3" element={<Room3 />} />
       <Route path="/ranking" element={<Ranking />} />
+      <Route path="/result" element={<Result />} />
       <Route path="/select" element={<SelectRoom />} />
 
       <Route path="/issei" element={<Issei />} />
