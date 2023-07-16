@@ -95,6 +95,14 @@ export const Room1 = (): JSX.Element => {
 
         const usersDocs = await getDocs(q);
 
+        if (usersDocs.docs.length == 1) {
+          setCurrentQuestion("");
+        }
+
+        if (usersDocs.docs.length >= 2) {
+          setCurrentQuestion(doc.data()?.currentLyric);
+        }
+
         // console.log(
         //   "ああああああ",
         //   JSON.stringify(doc.data()?.answerList.sort())
@@ -119,7 +127,6 @@ export const Room1 = (): JSX.Element => {
           console.log("どうですか");
           console.log(doc.data()?.currentLyric);
           // const res = await getDoc(doc(db, "users", user.uid));
-          setCurrentQuestion(doc.data()?.currentLyric);
         }
 
         setModal(
