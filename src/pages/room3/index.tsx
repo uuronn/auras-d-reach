@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import { PlayerName } from "~/components/PlayerName";
-import PLAYERS from "~/data";
+import { PLAYERS } from "~/data";
 
 const MAINCSS = css`
   width: 100%;
