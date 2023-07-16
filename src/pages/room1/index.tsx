@@ -1,6 +1,7 @@
 import { css } from "@emotion/react";
 import {
   collection,
+  getDoc,
   getDocs,
   onSnapshot,
   query,
@@ -15,18 +16,20 @@ import { LYRICS } from "~/data";
 import { createDocRef } from "~/firebase/store/createDocRef";
 import { resetAnswer } from "~/firebase/store/test/resetAnswer";
 import { updateAnswer } from "~/firebase/store/updateAnswer";
-import { CurrentRoomQuestion } from "~/types";
+import { CurrentRoomQuestion, Room } from "~/types";
 
 export const Room1 = (): JSX.Element => {
   const { user } = useAuthContext();
   const [isAllAnswer, setIsAllAnswer] = useState<boolean>(false);
-  const [currentQuestion, setCurrentQuestion] = useState<string>("");
+  // const [currentQuestion, setCurrentQuestion] = useState<string>("");
   const [currentRoomQuestion, setCurrentRoomQuestion] =
     useState<CurrentRoomQuestion>();
   const [over, setOver] = useState(true);
   const { usersDocRef, roomListDocRef } = createDocRef();
+  const [isAnswer, setIsAnswer] = useState<boolean>(false);
   const randomIndex = Math.floor(Math.random() * LYRICS.length);
   const randomCurrentQuestion = LYRICS[randomIndex];
+  const [currentPoint, setCurrentPoint] = useState<number>(0);
 
   useEffect(() => {
     if (user) {
@@ -78,27 +81,43 @@ export const Room1 = (): JSX.Element => {
         if (!doc.exists()) return;
 
         if (usersDocs.docs.length >= 2) {
-          console.log("こんにちは", doc.data());
+          // console.log("こんにちは", doc.data());
 
           setCurrentRoomQuestion(
             doc.data().currentRoomQuestion as CurrentRoomQuestion
           );
-          setCurrentQuestion(doc.data().currentLyric);
+          // setCurrentQuestion(doc.data().currentLyric);
         }
 
         // TODO: 配列が空だったら以下の処理は走らせない。
 
         if (
-          JSON.stringify(doc.data()?.answerList.length) ===
-          JSON.stringify(usersDocs.docs.map((doc) => doc.id).length)
+          JSON.stringify(doc.data()?.answerList.sort()) ===
+          JSON.stringify(usersDocs.docs.map((doc) => doc.id).sort())
         ) {
-          console.log(
-            JSON.stringify(doc.data()?.answerList.length) ===
-              JSON.stringify(usersDocs.docs.map((doc) => doc.id).length)
-          );
+          const userDoc = await getDoc(usersDocRef(user.uid));
 
-          console.log("どうですか");
-          console.log(doc.data()?.currentLyric);
+          if (!userDoc.exists()) return console.log("終了");
+
+          await updateDoc(usersDocRef(user.uid), {
+            room1: {
+              point: userDoc.data().room1.point,
+              isAnswer: false,
+              ranking: "unranked"
+            } as Room
+          });
+
+          await updateDoc(roomListDocRef("room1"), {
+            answerList: []
+          });
+
+          console.log("比較成功です");
+          // console.log(
+          //   JSON.stringify(doc.data()?.answerList.length) ===
+          //     JSON.stringify(usersDocs.docs.map((doc) => doc.id).length)
+          // );
+          // console.log("どうですか");
+          // console.log(doc.data()?.currentLyric);
         }
 
         setIsAllAnswer(
@@ -106,14 +125,51 @@ export const Room1 = (): JSX.Element => {
             JSON.stringify(usersDocs.docs.map((doc) => doc.id).sort())
         );
       });
+
+      onSnapshot(usersDocRef(user.uid), (doc) => {
+        setIsAnswer(doc.data()?.room1.isAnswer);
+      });
     }
   }, [user]);
 
   if (!user) return <div>ユーザー情報が存在しません。</div>;
 
-  const answerHandler = (choice: string) => {
+  const answerHandler = async (choice: string) => {
+    const userDoc = await getDoc(usersDocRef(user.uid));
+
+    if (!userDoc.exists()) return console.log("終了");
+
     if (currentRoomQuestion?.answer === choice) {
+      // 回答済みにさせる
+      updateAnswer(user);
+
       console.log("正解");
+
+      console.log("こんにちはですよ", userDoc.data().room1.point + 1);
+
+      setCurrentPoint(userDoc.data().room1.point + 1);
+
+      await updateDoc(usersDocRef(user.uid), {
+        room1: {
+          point: userDoc.data().room1.point + 1,
+          isAnswer: true,
+          ranking: "unranked"
+        } as Room
+      });
+    } else {
+      // 回答済みにさせる
+      updateAnswer(user);
+
+      setCurrentPoint(userDoc.data().room1.point);
+
+      console.log("不正解");
+      await updateDoc(usersDocRef(user.uid), {
+        room1: {
+          point: userDoc.data().room1.point,
+          isAnswer: true,
+          ranking: "unranked"
+        } as Room
+      });
     }
   };
 
@@ -122,12 +178,17 @@ export const Room1 = (): JSX.Element => {
       {over && <div css={overlay}>他のユーザーが入るまでお待ちください...</div>}
       こんにちはRoom1です
       <p>{user.uid}</p>
-      <p>現在の問題: {currentQuestion}</p>
-      <p>現在の答え: {currentRoomQuestion?.answer}</p>
-      <p>現在の歌詞: {currentRoomQuestion?.lyric}</p>
+      {/* <p>現在の問題: {currentQuestion}</p> */}
+      {/* <p>現在の答え: {currentRoomQuestion?.answer}</p> */}
+      <p>現在の歌詞: {currentRoomQuestion?.lyrics}</p>
+      <p>現在の正解数: {currentPoint}</p>
       {isAllAnswer && <div css={modalStyle}>全員の回答が完了しました</div>}
       {currentRoomQuestion?.choices.map((choice) => (
-        <Button key={choice} onClick={() => answerHandler(choice)}>
+        <Button
+          key={choice}
+          onClick={() => answerHandler(choice)}
+          disabled={isAnswer}
+        >
           {choice}
         </Button>
       ))}

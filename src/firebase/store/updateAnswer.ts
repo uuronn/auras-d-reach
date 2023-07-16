@@ -3,21 +3,25 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "firebaseConfig";
 
 export const updateAnswer = async (user: User) => {
-  // userデータを取得
-  const userRef = doc(db, "users", user.uid);
-  const userDoc = await getDoc(userRef);
-  if (!userDoc.exists()) return;
+  // // userデータを取得
+  // const userRef = doc(db, "users", user.uid);
+  // const userDoc = await getDoc(userRef);
+  // if (!userDoc.exists()) return;
 
-  // TODOもしかしたら isAnswer 要らないかもしれない
-  const isAnswer: boolean = userDoc.data().room1.isAnswer;
+  // // TODOもしかしたら isAnswer 要らないかもしれない
+  // const isAnswer: boolean = userDoc.data().room1.isAnswer;
 
-  // 既に回答済みならアラートを返す
-  if (isAnswer) return alert("回答済みです");
+  // // 既に回答済みならアラートを返す
+  // if (isAnswer) return alert("回答しました");
 
-  // userデータのisAnswerをtrueにする
-  await updateDoc(userRef, {
-    room1: { isAnswer: true, point: 0, ranking: "unranked" }
-  });
+  // // userデータのisAnswerをtrueにする
+  // await updateDoc(userRef, {
+  //   room1: {
+  //     isAnswer: true,
+  //     point: userDoc.data().room1.point,
+  //     ranking: "unranked"
+  //   }
+  // });
 
   // room1データを取得
   const room1Ref = doc(db, "roomList", "room1");
