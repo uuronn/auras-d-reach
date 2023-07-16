@@ -1,5 +1,48 @@
 import { css } from "@emotion/react";
-import { RankingData } from "~/components/Ranking";
+import {
+  collection,
+  query,
+  getDocs,
+  orderBy,
+  DocumentData
+} from "firebase/firestore";
+import { db } from "firebaseConfig";
+import { useEffect, useState } from "react";
+import { RankingData } from "~/components/RankingData";
+
+function Ranking() {
+  const [playerList, setPlayerList] = useState<DocumentData[]>([]);
+  useEffect(() => {
+    (async () => {
+      const q = query(collection(db, "ranking"), orderBy("totalPoint", "desc"));
+      getDocs(q).then((snapshot) => {
+        const playerData = snapshot.docs.map((doc) => {
+          return [doc.id,doc.data()];
+        });
+        setPlayerList(playerData);
+      });
+    })();
+  }, []);
+
+  return (
+    <div css={MainSection}>
+      <p css={RankingText}>優里ランキング</p>
+      <div css={ranking}>
+        {playerList.map((playerData) => {
+          return (
+            <RankingData
+              key={playerData[0]}
+              RankingName={playerData[1].name}
+              point={playerData[1].totalPoint}
+            />
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+export default Ranking;
 
 const RankingText = css`
   font-size: 40px;
@@ -26,18 +69,3 @@ const ranking = css`
     width: 80%;
   }
 `;
-
-function Ranking() {
-  return (
-    <div css={MainSection}>
-      <p css={RankingText}>優里ランキング</p>
-      <div css={ranking}>
-        <RankingData RankingName="takuaki" point={1} />
-        <RankingData RankingName="turu" point={2} />
-        <RankingData RankingName="issei" point={0} />
-      </div>
-    </div>
-  );
-}
-
-export default Ranking;
