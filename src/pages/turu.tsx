@@ -1,11 +1,5 @@
-import { RankingData } from "~/components/RankingData";
-
 export const Turu = () => {
-  return (
-    <div>
-      <RankingData RankingName="isseiissei" point={0} />
-    </div>
-  );
+  return <p>aaa</p>;
 };
 
 export default Turu;

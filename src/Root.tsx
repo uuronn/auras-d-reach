@@ -38,8 +38,9 @@ const router = createBrowserRouter(
 
       <Route path="turu" element={<Turu />} />
 
-      <Route path="takuaki" element={<Takuaki/>} />
-      <Route path="box" element={<Box/>} />
+      <Route path="takuaki" element={<Takuaki />} />
+      <Route path="box" element={<Box />} />
+
     </Route>
   )
 );

@@ -1,38 +1,44 @@
 import { css } from "@emotion/react";
-import { Button } from "../components/Button";
-import { useGoogleLogin } from "./auth/login/hooks/useGoogleLogin";
 import { useAuthContext } from "../context/hooks/useAuthContext";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { getDoc, updateDoc } from "firebase/firestore";
+import { createDocRef } from "~/firebase/store/createDocRef";
 
 const Home = () => {
-  // const [test, setTest] = useState<boolean>();
-
   const navigate = useNavigate();
-
   const { user } = useAuthContext();
+  const { usersDocRef, roomListDocRef } = createDocRef();
 
-  if (!user) return <div>loading...</div>;
-  // useEffect(() => {
-  //   (async () => {
-  //     const res = await getDoc(doc(db, "users", "test-id"));
-  //     if (res.exists()) setTest(res.data()?.isAnswer);
-  //   })();
-  // }, []);
+  useEffect(() => {
+    if (user) {
+      (async () => {
+        const room1Doc = await getDoc(roomListDocRef("room1"));
+        if (!room1Doc.exists()) return;
 
-  // useEffect(() => {
-  //   console.log("agjjbb", test);
-  // }, [test]);
+        const answerList: string[] = room1Doc.data().answerList;
 
-  // const click = async () => {
-  //   await setDoc(doc(db, "users", "test-id"), {
-  //     isAnswer: true
-  //   });
-  // };
+        await updateDoc(usersDocRef(user.uid), {
+          currentRoom: null,
+          room1: { isAnswer: false, point: 0, ranking: "unranked" }
+        });
 
-  // onSnapshot(doc(db, "users", "test-id"), (doc) => {
-  //   console.log("Current data: ", doc.data()?.isAnswer);
-  //   setTest(doc.data()?.isAnswer);
-  // });
+        if (answerList.includes(user.uid)) {
+          const uidIndex = answerList.indexOf(user.uid);
+          answerList.splice(uidIndex, 1);
+
+          await updateDoc(roomListDocRef("room1"), {
+            answerList
+          });
+        }
+      })();
+    }
+  }, [user, usersDocRef, roomListDocRef]);
+
+  if (!user) {
+    navigate("/auth/login");
+    return <div>loadinああああg...</div>;
+  }
 
   const onClick = (path: string) => {
     navigate(path);
@@ -49,24 +55,6 @@ const Home = () => {
         Room2へ
       </button>
       <button onClick={() => onClick("room3")}>Room3へ</button>
-      {/* {test && (
-        <div
-          css={css`
-            background: green;
-            width: 300px;
-            height: 300px;
-            position: absolute;
-            right: 0;
-            top: 0;
-          `}
-        >
-          ああっfじょじゃ；fjさ；fじゃs；lfj；ｆ
-        </div>
-      )} */}
-      hello world
-      {/* <p>name: {user?.displayName}</p>
-      <Button onClick={click}>答える</Button> */}
-      <Button onClick={useGoogleLogin}>test</Button>
     </div>
   );
 };

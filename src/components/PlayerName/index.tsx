@@ -1,6 +1,7 @@
 import { css } from "@emotion/react";
 import { ComponentPropsWithRef } from "react";
 import Check from "../../assets/check.svg";
+
 interface PlayerNameProps extends ComponentPropsWithRef<"div"> {
   playerName: string;
   isAnswer: boolean;
@@ -11,7 +12,6 @@ const player = css`
   padding: 13px;
   background-color: #444;
   width: fit-content;
-  /* border-radius: 15%; */
   border-radius: 16px;
   display: flex;
   margin: 10px;
