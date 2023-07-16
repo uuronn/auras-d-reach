@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import * as THREE from "three";
+import King from "../../assets/king.png";
 function Box() {
   useEffect(() => {
     //scene
@@ -19,7 +20,8 @@ function Box() {
 
     //boxsize
     const geometry = new THREE.BoxGeometry(2, 2, 2);
-    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+    const texture = new THREE.TextureLoader().load(King); 
+    const material = new THREE.MeshBasicMaterial({ map:texture });
     // const material = new THREE.MeshBasicMaterial( { map:texture } );
     const cube = new THREE.Mesh(geometry, material);
     scene.add(cube);
