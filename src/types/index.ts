@@ -12,3 +12,9 @@ export type Room = {
   isAnswer: boolean;
   ranking: "first" | "second" | "third" | "unranked";
 };
+
+export type CurrentRoomQuestion = {
+  answer: string;
+  lyric: string;
+  choices: string[];
+};

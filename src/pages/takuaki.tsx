@@ -1,3 +1,4 @@
+import Loading from "~/components/Loading"
 import Logout from "~/components/Logout"
 import OnlineCounter from "~/components/Online"
 import { PlayerName } from "~/components/PlayerName"
@@ -11,6 +12,7 @@ function Takuaki() {
         <PlayerName playerName="takuaki" isAnswer={true}/>
         <OnlineCounter onlineNumber={2}/>
         <Logout/>
+        <Loading/>
     </div>
     
   )
