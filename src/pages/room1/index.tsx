@@ -11,12 +11,13 @@ import {
 import { db } from "firebaseConfig";
 import { useEffect, useState } from "react";
 import { Button } from "~/components/Button";
+import { PlayerName } from "~/components/PlayerName";
 import { useAuthContext } from "~/context/hooks/useAuthContext";
 import { LYRICS } from "~/data";
 import { createDocRef } from "~/firebase/store/createDocRef";
 import { resetAnswer } from "~/firebase/store/test/resetAnswer";
 import { updateAnswer } from "~/firebase/store/updateAnswer";
-import { CurrentRoomQuestion, Room } from "~/types";
+import { CurrentRoomQuestion, Room, UserStatus } from "~/types";
 
 export const Room1 = (): JSX.Element => {
   const { user } = useAuthContext();
@@ -28,14 +29,37 @@ export const Room1 = (): JSX.Element => {
   const { usersDocRef, roomListDocRef } = createDocRef();
   const [isAnswer, setIsAnswer] = useState<boolean>(false);
   const randomIndex = Math.floor(Math.random() * LYRICS.length);
+  const [userStatusList, setUserStatusList] = useState<UserStatus[]>([]);
   const randomCurrentQuestion = LYRICS[randomIndex];
   const [currentPoint, setCurrentPoint] = useState<number>(0);
 
   useEffect(() => {
     if (user) {
       (async () => {
+        const room1Doc = await getDoc(roomListDocRef("room1"));
+
         await updateDoc(usersDocRef(user.uid), {
           currentRoom: 1
+        });
+
+        if (!room1Doc.exists()) return console.log("room1Doc");
+
+        if (!room1Doc.exists) return console.log("ああああ");
+
+        const userStatusList: UserStatus[] = room1Doc.data().userStatusList;
+
+        if (
+          !userStatusList.map((userStatus) => userStatus.id).includes(user.uid)
+        ) {
+          userStatusList.push({
+            id: user.uid,
+            name: user.displayName ? user.displayName : "名無し",
+            isAnswer: false
+          });
+        }
+
+        await updateDoc(roomListDocRef("room1"), {
+          userStatusList: userStatusList
         });
       })();
     }
@@ -83,6 +107,8 @@ export const Room1 = (): JSX.Element => {
         if (usersDocs.docs.length >= 2) {
           // console.log("こんにちは", doc.data());
 
+          setUserStatusList(doc.data().userStatusList);
+
           setCurrentRoomQuestion(
             doc.data().currentRoomQuestion as CurrentRoomQuestion
           );
@@ -109,6 +135,18 @@ export const Room1 = (): JSX.Element => {
 
           await updateDoc(roomListDocRef("room1"), {
             answerList: []
+          });
+
+          const userStatusList: UserStatus[] = doc.data().userStatusList;
+
+          const userStatusReset = userStatusList.map((userStatus) => {
+            return { ...userStatus, isAnswer: false };
+          });
+
+          console.log("こんにちだあああは", userStatusReset);
+
+          await updateDoc(roomListDocRef("room1"), {
+            userStatusList: userStatusReset
           });
 
           console.log("比較成功です");
@@ -178,6 +216,13 @@ export const Room1 = (): JSX.Element => {
       {over && <div css={overlay}>他のユーザーが入るまでお待ちください...</div>}
       こんにちはRoom1です
       <p>{user.uid}</p>
+      {userStatusList.map((user) => (
+        <PlayerName
+          key={user.id}
+          playerName={user.name}
+          isAnswer={user.isAnswer}
+        />
+      ))}
       {/* <p>現在の問題: {currentQuestion}</p> */}
       {/* <p>現在の答え: {currentRoomQuestion?.answer}</p> */}
       <p>現在の歌詞: {currentRoomQuestion?.lyrics}</p>

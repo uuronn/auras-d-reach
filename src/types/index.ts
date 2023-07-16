@@ -18,3 +18,9 @@ export type CurrentRoomQuestion = {
   lyrics: string;
   choices: string[];
 };
+
+export type UserStatus = {
+  id: string;
+  name: string;
+  isAnswer: boolean;
+};

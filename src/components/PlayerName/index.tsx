@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import { ComponentPropsWithRef } from "react";
-import Check from "../../assets/check.svg";
+import Check from "../../assets/google.svg";
 
 interface PlayerNameProps extends ComponentPropsWithRef<"div"> {
   playerName: string;
@@ -34,7 +34,7 @@ export function PlayerName({
   return (
     <div css={player} {...props}>
       {playerName}
-      {isAnswer ? <img src={Check} alt="" css={CheckImg} /> : ""}
+      {isAnswer && <img src={Check} alt="チェックアイコン" css={CheckImg} />}
     </div>
   );
 }
