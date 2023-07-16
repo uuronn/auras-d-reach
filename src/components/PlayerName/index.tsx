@@ -9,10 +9,10 @@ const player = css`
   color: #eee;
   padding: 13px;
   background-color: #444;
-  width:fit-content;
+  width: fit-content;
   border-radius: 15%;
 `;
 
-export function PlayerName({ playerName }: PlayerNameProps) {
+export const PlayerName = ({ playerName }: PlayerNameProps) => {
   return <div css={player}>{playerName}</div>;
-}
+};

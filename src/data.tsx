@@ -50,3 +50,7 @@ let LYRICS = [
       "恋はどんなことでさえも超えていけると 思える日が来るだなんて思わなくて 住んでる世界が違うのかななんて 君を遠く感じていただけど今触れる"
   }
 ];
+
+let PLAYERS = ["PLAYER1", "PLAYER2", "PLAYER3", "AAAAAAAA1", "AAA2"];
+
+export default PLAYERS;
