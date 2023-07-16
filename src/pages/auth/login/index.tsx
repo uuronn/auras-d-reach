@@ -57,10 +57,6 @@ const LoginPage = () => {
           <img css={img} src={googleImg} />
           Googleでログイン
         </Button>
-        <Button css={contents} onClick={useLogout}>
-          <img css={img} src="/src/assets/door.svg" />
-          ログアウトする
-        </Button>
       </div>
     </main>
   );
