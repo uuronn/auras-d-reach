@@ -20,6 +20,7 @@ export type CurrentRoomQuestion = {
 };
 
 export type UserStatus = {
+  id: string;
   name: string;
   isAnswer: boolean;
 };

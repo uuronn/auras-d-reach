@@ -1,6 +1,7 @@
 import { User } from "firebase/auth";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "firebaseConfig";
+import { UserStatus } from "~/types";
 
 export const updateAnswer = async (user: User) => {
   // // userデータを取得
@@ -30,6 +31,10 @@ export const updateAnswer = async (user: User) => {
 
   const answerList: string[] = room1Doc.data().answerList;
 
+  const userStatusList: UserStatus[] = room1Doc.data().userStatusList;
+
+  // console.log(userStatusList)
+
   if (answerList.includes(user.uid)) return alert("回答済みです");
 
   // roomListコレクションのroom1に自分のuidが含まれてなかったらuidを追加
@@ -39,6 +44,18 @@ export const updateAnswer = async (user: User) => {
     // room1の配列を更新
     await updateDoc(room1Ref, {
       answerList: answerList
+    });
+  }
+
+  const targetIndex = userStatusList.findIndex(
+    (userStatus) => userStatus.id === user.uid
+  );
+
+  if (targetIndex !== -1) {
+    userStatusList[targetIndex].isAnswer = true;
+
+    await updateDoc(room1Ref, {
+      userStatusList
     });
   }
 };
