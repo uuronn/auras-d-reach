@@ -20,6 +20,7 @@ import Ranking from "./pages/Ranking";
 import SelectRoom from "./pages/SelectRoom";
 import Box from "./components/Boxs";
 import Result from "./pages/Result";
+import Square from "./components/Square";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -42,6 +43,7 @@ const router = createBrowserRouter(
 
       <Route path="takuaki" element={<Takuaki />} />
       <Route path="box" element={<Box />} />
+      <Route path="square" element={<Square />} />
     </Route>
   )
 );
