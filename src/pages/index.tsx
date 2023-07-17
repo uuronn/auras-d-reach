@@ -6,7 +6,6 @@ import { getDoc, updateDoc } from "firebase/firestore";
 import { createDocRef } from "~/firebase/store/createDocRef";
 import { UserStatus } from "~/types";
 import Room from "~/components/Room";
-import OnlineCounter from "~/components/Online";
 import Logout from "~/components/Logout";
 
 const Home = () => {
@@ -63,7 +62,6 @@ const Home = () => {
   return (
     <div css={whole}>
       <div css={header}>
-        <OnlineCounter onlineNumber={1} />
         <Logout />
       </div>
       <div css={room}>
