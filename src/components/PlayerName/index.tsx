@@ -18,6 +18,7 @@ const player = css`
   justify-content: center;
   align-items: center;
   font-size: 70%;
+  margin: 0 auto 4px;
 `;
 
 const CheckImg = css`
