@@ -16,9 +16,11 @@ import { PlayerName } from "~/components/PlayerName";
 import { useAuthContext } from "~/context/hooks/useAuthContext";
 import { LYRICS } from "~/data";
 import { createDocRef } from "~/firebase/store/createDocRef";
-import { resetAnswer } from "~/firebase/store/test/resetAnswer";
+// import { resetAnswer } from "~/firebase/store/test/resetAnswer";ß
 import { updateAnswer } from "~/firebase/store/updateAnswer";
 import { CurrentRoomQuestion, Room, UserStatus } from "~/types";
+import * as styles from "./style";
+import { Lyric } from "~/components/Lyric";
 
 export const Room1 = (): JSX.Element => {
   const { user } = useAuthContext();
@@ -222,51 +224,93 @@ export const Room1 = (): JSX.Element => {
   };
 
   return (
-    <div css={main}>
-      {over && <div css={overlay}>他のユーザーが入るまでお待ちください...</div>}
-      こんにちはRoom1です
-      <p>{user.uid}</p>
-      {userStatusList.map((user) => (
-        <PlayerName
-          key={user.id}
-          playerName={user.name}
-          isAnswer={user.isAnswer}
-        />
-      ))}
-      {/* <p>現在の問題: {currentQuestion}</p> */}
-      {/* <p>現在の答え: {currentRoomQuestion?.answer}</p> */}
-      <p>現在の歌詞: {currentRoomQuestion?.lyrics}</p>
-      <p>現在の正解数: {currentPoint}</p>
-      {isAllAnswer && <div css={modalStyle}>全員の回答が完了しました</div>}
-      {currentRoomQuestion?.choices.map((choice) => (
-        <Button
-          key={choice}
-          onClick={() => answerHandler(choice)}
-          disabled={isAnswer}
-        >
-          {choice}
-        </Button>
-      ))}
-      <Button
-        css={css`
-          display: inline;
-          width: fit-content;
-        `}
-        onClick={() => updateAnswer(user)}
-      >
-        保留のボタン
-      </Button>
-      {/* <button onClick={() => updateAnswer(user)}>B. ピーターパン</button>
-      <button onClick={() => updateAnswer(user)}>C. ビリミリオン</button>
-      <button onClick={() => updateAnswer(user)}>D. タイムマシン</button> */}
-      <button css={testButton} onClick={() => resetAnswer(user.uid)}>
-        回答リセット用のテストボタン
-      </button>
+    <div css={styles.div}>
+      {over && (
+        <div css={overlayStyle}>他のユーザーが入るまでお待ちください...</div>
+      )}
+      <main css={styles.pageCSS}>
+        <div css={styles.members}>
+          <div css={styles.playersboxCSS}>
+            <div>参加者</div>
+            {userStatusList.map((player) => (
+              <div>
+                <PlayerName
+                  key={player.id}
+                  playerName={player.name}
+                  isAnswer={player.isAnswer}
+                  css={styles.playerCSS}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+        <p css={point}>正解数: {currentPoint}</p>
+        <div css={styles.MAINCSS}>
+          <Lyric
+            lyric={currentRoomQuestion?.lyrics as string}
+            css={styles.lyricCSS}
+          />
+          {currentRoomQuestion?.choices.map((choice) => (
+            <Button
+              css={styles.button}
+              key={choice}
+              onClick={() => answerHandler(choice)}
+              disabled={isAnswer}
+            >
+              {choice}
+            </Button>
+          ))}
+        </div>
+      </main>
     </div>
   );
+
+  // return (
+  //   <div css={main}>
+  //     {over && <div css={overlay}>他のユーザーが入るまでお待ちください...</div>}
+  //     こんにちはRoom1です
+  //     <p>{user.uid}</p>
+  //     {userStatusList.map((user) => (
+  //       <PlayerName
+  //         key={user.id}
+  //         playerName={user.name}
+  //         isAnswer={user.isAnswer}
+  //       />
+  //     ))}
+  //     {/* <p>現在の問題: {currentQuestion}</p> */}
+  //     {/* <p>現在の答え: {currentRoomQuestion?.answer}</p> */}
+  //     <p>現在の歌詞: {currentRoomQuestion?.lyrics}</p>
+  //     <p>現在の正解数: {currentPoint}</p>
+  //     {isAllAnswer && <div css={modalStyle}>全員の回答が完了しました</div>}
+  //     {currentRoomQuestion?.choices.map((choice) => (
+  //       <Button
+  //         key={choice}
+  //         onClick={() => answerHandler(choice)}
+  //         disabled={isAnswer}
+  //       >
+  //         {choice}
+  //       </Button>
+  //     ))}
+  //     <Button
+  //       css={css`
+  //         display: inline;
+  //         width: fit-content;
+  //       `}
+  //       onClick={() => updateAnswer(user)}
+  //     >
+  //       保留のボタン
+  //     </Button>
+  //     {/* <button onClick={() => updateAnswer(user)}>B. ピーターパン</button>
+  //     <button onClick={() => updateAnswer(user)}>C. ビリミリオン</button>
+  //     <button onClick={() => updateAnswer(user)}>D. タイムマシン</button> */}
+  //     <button css={testButton} onClick={() => resetAnswer(user.uid)}>
+  //       回答リセット用のテストボタン
+  //     </button>
+  //   </div>
+  // );
 };
 
-const overlay = css`
+const overlayStyle = css`
   background: black;
   position: absolute;
   opacity: 0.7;
@@ -279,20 +323,24 @@ const overlay = css`
   line-height: 100vh;
 `;
 
-const main = css`
-  display: flex;
-  flex-direction: column;
+// const main = css`
+//   display: flex;
+//   flex-direction: column;
+// `;
+
+const point = css`
+  margin-left: 32px;
 `;
 
-const testButton = css`
-  position: absolute;
-  right: 0;
-  background: red;
-  opacity: 0.8;
-`;
+// const testButton = css`
+//   position: absolute;
+//   right: 0;
+//   background: red;
+//   opacity: 0.8;
+// `;
 
-const modalStyle = css`
-  background: red;
-  position: absolute;
-  top: 0;
-`;
+// const modalStyle = css`
+//   background: red;
+//   position: absolute;
+//   top: 0;
+// `;

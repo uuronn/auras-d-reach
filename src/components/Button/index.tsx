@@ -14,6 +14,10 @@ const button = css`
   font-size: 16px;
   background: #bebebe;
   justify-content: center;
+
+  &[disabled] {
+    opacity: 0.3;
+  }
 `;
 
 export const Button = ({ children, ...props }: ButtonProps) => {

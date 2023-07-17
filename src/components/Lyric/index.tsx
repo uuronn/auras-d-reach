@@ -17,19 +17,19 @@ const lyriccss = css`
   text-align: center;
   justify-content: center;
   position: relative;
+  display: flex;
+  align-items: center;
 `;
 
-const kashiCSS = css`
-  position: absolute;
-  top: 0;
-  left: 20px;
+const span = css`
+  min-width: 50px;
 `;
 
 export const Lyric = ({ lyric, ...props }: LyricProps) => {
   return (
     <p css={lyriccss} {...props}>
-      <span css={kashiCSS}>歌詞:</span>
-      <span>{lyric}</span>
+      <span css={span}>歌詞:</span>
+      {lyric}
     </p>
   );
 };
