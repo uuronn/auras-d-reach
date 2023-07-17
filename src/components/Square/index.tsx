@@ -8,7 +8,7 @@ function Square({topPlayerName}:any) {
 
     //camera
     const camera: THREE.PerspectiveCamera = new THREE.PerspectiveCamera(
-      30,
+      25,
       window.innerWidth / window.innerHeight
     );
     //renderer
@@ -90,7 +90,7 @@ function Square({topPlayerName}:any) {
       }
 
       cube.rotation.x += 0.01;
-      cube.rotation.y += 0.008;
+      cube.rotation.y += 0.02;
       renderer.render(scene, camera);
     }
 
@@ -102,6 +102,7 @@ function Square({topPlayerName}:any) {
     }
 
     window.addEventListener("resize", onWindowResize);
+    window.addEventListener("scroll", onWindowResize);
 
     animate();
   }, []);
