@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import * as THREE from "three";
 
-function Square({topPlayerName}:any) {
+function Square({ topPlayerName }: any) {
   useEffect(() => {
     //scene
     const scene: THREE.Scene = new THREE.Scene();
@@ -18,8 +18,8 @@ function Square({topPlayerName}:any) {
     document.body.appendChild(renderer.domElement);
 
     //文字をテクスチャにする
-    let canvas = document.createElement("canvas");
-    let ctx: CanvasRenderingContext2D | null = canvas.getContext("2d");
+    const canvas = document.createElement("canvas");
+    const ctx: CanvasRenderingContext2D | null = canvas.getContext("2d");
     if (ctx) {
       ctx.font = "80px Times New Roman";
       ctx.fillStyle = "#FFFF00";
@@ -41,9 +41,9 @@ function Square({topPlayerName}:any) {
     const plane: any = [];
 
     for (let i = 0; i < length; i++) {
-      let geometry = new THREE.PlaneGeometry(plane_scale, plane_scale);
-      let color = "0x" + Math.floor(Math.random() * 16777215).toString(16);
-      let material = new THREE.MeshBasicMaterial({
+      const geometry = new THREE.PlaneGeometry(plane_scale, plane_scale);
+      const color = "0x" + Math.floor(Math.random() * 16777215).toString(16);
+      const material = new THREE.MeshBasicMaterial({
         color: Number(color),
         opacity: 0.8, // お好みで
         transparent: true, // "opacity"を付けるときは必須
