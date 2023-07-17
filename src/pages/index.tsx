@@ -7,6 +7,7 @@ import { createDocRef } from "~/firebase/store/createDocRef";
 import { UserStatus } from "~/types";
 import Room from "~/components/Room";
 import Logout from "~/components/Logout";
+import { Button } from "~/components/Button";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -62,6 +63,7 @@ const Home = () => {
   return (
     <div css={whole}>
       <div css={header}>
+        <Button onClick={() => (location.href = "/ranking")}>ランキング</Button>
         <Logout />
       </div>
       <div css={room}>

@@ -161,7 +161,7 @@ export const Room1 = (): JSX.Element => {
           // console.log("どうですか");
           // console.log(doc.data()?.currentLyric);
 
-          if (room1Doc.data().questionCounter <= 10) {
+          if (room1Doc.data().questionCounter <= 7) {
             await updateDoc(roomListDocRef("room1"), {
               questionCounter: room1Doc.data().questionCounter + 1
             });
