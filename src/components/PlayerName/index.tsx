@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import { ComponentPropsWithRef } from "react";
-import Check from "../../assets/check.svg";
+import Check from "../../assets/google.svg";
 
 interface PlayerNameProps extends ComponentPropsWithRef<"div"> {
   playerName: string;
@@ -9,7 +9,7 @@ interface PlayerNameProps extends ComponentPropsWithRef<"div"> {
 
 const player = css`
   color: #eee;
-  padding: 18px;
+  padding: 6px;
   background-color: #444;
   width: fit-content;
   border-radius: 5px;
@@ -18,7 +18,6 @@ const player = css`
   justify-content: center;
   align-items: center;
   font-size: 70%;
-  padding-left: 5%;
 `;
 
 const CheckImg = css`
@@ -34,7 +33,7 @@ export function PlayerName({
   return (
     <div css={player} {...props}>
       {playerName}
-      {isAnswer ? <img src={Check} alt="" css={CheckImg} /> : ""}
+      {isAnswer && <img src={Check} alt="チェックアイコン" css={CheckImg} />}
     </div>
   );
 }

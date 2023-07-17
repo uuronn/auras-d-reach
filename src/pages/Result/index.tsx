@@ -1,21 +1,19 @@
 import { css } from "@emotion/react";
-import {
-  collection,
-  query,
-  getDocs,
-  orderBy,
-  DocumentData
-} from "firebase/firestore";
+import { collection, query, getDocs, where } from "firebase/firestore";
 import { db } from "firebaseConfig";
 import { useEffect, useState } from "react";
 import { RankingData } from "~/components/RankingData";
 import King from "../../assets/king.png";
+import { ResultUser } from "~/types";
+import { Button } from "~/components/Button";
+import { useNavigate } from "react-router-dom";
 
 const kingImg = css`
   display: block;
   height: 80px;
   margin-left: 5%;
-  @media (max-width:500px){
+
+  @media (max-width: 500px) {
     height: 40px;
   }
 `;
@@ -23,40 +21,61 @@ const kingImg = css`
 const section = css`
   display: flex;
   margin: 0 auto;
+  justify-content: center;
+  max-width: 1200px;
+  width: 100%;
+`;
+
+const button = css`
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  font-size: 12px;
+
+  @media (min-width: 600px) {
+    font-size: 24px;
+    top: 64px;
+    left: 64px;
+  }
 `;
 
 function Result() {
-  const [playerList, setPlayerList] = useState<DocumentData[]>([]);
-  const [topPlayer, setTopPlayer] = useState<string | DocumentData>("");
+  const navigate = useNavigate();
+  const [resultList, setResultList] = useState<ResultUser[]>([]);
+
   useEffect(() => {
     (async () => {
-      const q = query(collection(db, "ranking"), orderBy("totalPoint", "desc"));
+      const q = query(collection(db, "users"), where("currentRoom", "==", 1));
+
       getDocs(q).then((snapshot) => {
         const playerData = snapshot.docs.map((doc) => {
-          return [doc.id, doc.data()];
+          console.log("doc", doc);
+          return { id: doc.id, point: doc.data().room1.point };
         });
-        setPlayerList(playerData);
-        setTopPlayer(playerData[0][0]);
+
+        const resultList = playerData.sort((a, b) => b.point - a.point);
+        console.log(resultList);
+
+        setResultList(resultList);
       });
     })();
   }, []);
+
   return (
     <div>
+      <Button css={button} onClick={() => navigate("/")}>
+        TOPページへ戻る
+      </Button>
       <p css={RankingText}>結果</p>
       <div css={section}>
-        {playerList.map((playerData) => {
-          return (
-            playerData[0]==topPlayer && <img src={King} alt="" css={kingImg} key={playerData[0]}/>
-          )
-        })}
-        
-        <div css={MainSection}>
-          {playerList.map((playerData) => {
+        <img src={King} css={kingImg} alt="かんむり" />
+        <div>
+          {resultList.map((result) => {
             return (
               <RankingData
-                key={playerData[0]}
-                RankingName={playerData[1].name}
-                point={playerData[1].totalPoint}
+                key={result.id}
+                RankingName={result.name ? result.name : "test"}
+                point={result.point}
               />
             );
           })}
@@ -76,14 +95,5 @@ const RankingText = css`
   @media (max-width: 500px) {
     font-size: 30px;
     margin: 20% auto;
-  }
-`;
-const MainSection = css`
-  width: 80%;
-  margin: 0 auto 0 0;
-  text-align: center;
-  @media (max-width: 500px) {
-    width: 80%;
-    margin: 0;
   }
 `;

@@ -1,3 +1,3 @@
 # react-typescript-template
 
-みんなでハッカソン頑張ろう！
+みんなでハッカソン頑張ろう！!

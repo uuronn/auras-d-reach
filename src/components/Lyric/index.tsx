@@ -12,16 +12,24 @@ const lyriccss = css`
   width: 80%;
   background-color: white;
   font-weight: bold;
-  padding: 2%;
-  margin: 10px;
+  padding: 2px;
+  margin: 5%;
   text-align: center;
   justify-content: center;
+  position: relative;
+`;
+
+const kashiCSS = css`
+  position: absolute;
+  top: 0;
+  left: 20px;
 `;
 
 export const Lyric = ({ lyric, ...props }: LyricProps) => {
   return (
     <p css={lyriccss} {...props}>
-      {lyric}
+      <span css={kashiCSS}>歌詞:</span>
+      <span>{lyric}</span>
     </p>
   );
 };

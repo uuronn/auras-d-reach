@@ -15,6 +15,18 @@ export type Room = {
 
 export type CurrentRoomQuestion = {
   answer: string;
-  lyric: string;
+  lyrics: string;
   choices: string[];
+};
+
+export type UserStatus = {
+  id: string;
+  name: string;
+  isAnswer: boolean;
+};
+
+export type ResultUser = {
+  id: string;
+  name?: string;
+  point: number;
 };
