@@ -1,6 +1,5 @@
 import { css } from "@emotion/react";
 import { ComponentPropsWithRef } from "react";
-import { useNavigate } from "react-router-dom";
 import homeImg from "../../assets/home.svg";
 
 const personNumber = css`
@@ -27,13 +26,8 @@ interface Person extends ComponentPropsWithRef<"button"> {
   roomNumber: number;
 }
 
-function Room({ personNumbers, roomNumber }: Person) {
+function Room({ personNumbers, roomNumber, ...props }: Person) {
   const disable = personNumbers >= 5;
-  const navigate = useNavigate();
-  
-  const clickHandler = () => {
-    disable ? alert("人数は既に上限に達しています") : navigate("/room1");
-  };
 
   const room = css`
     &:hover {
@@ -52,7 +46,7 @@ function Room({ personNumbers, roomNumber }: Person) {
   `;
 
   return (
-    <button css={room} onClick={clickHandler}>
+    <button css={room} {...props}>
       <p css={personNumber}>{personNumbers}/5</p>
       <div css={rooms}>
         <img src={homeImg} alt="roomImg" css={roomImg} />

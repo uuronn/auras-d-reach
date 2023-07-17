@@ -5,6 +5,9 @@ import { useEffect } from "react";
 import { getDoc, updateDoc } from "firebase/firestore";
 import { createDocRef } from "~/firebase/store/createDocRef";
 import { UserStatus } from "~/types";
+import Room from "~/components/Room";
+import OnlineCounter from "~/components/Online";
+import Logout from "~/components/Logout";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -58,18 +61,60 @@ const Home = () => {
   };
 
   return (
-    <div
-      css={css`
-        background: pink;
-      `}
-    >
-      <button onClick={() => onClick("room1")}>Room1へ</button>
-      <button onClick={() => onClick("room2")} disabled>
-        Room2へ
-      </button>
-      <button onClick={() => onClick("room3")}>Room3へ</button>
+    <div css={whole}>
+      <div css={header}>
+        <OnlineCounter onlineNumber={1} />
+        <Logout />
+      </div>
+      <div css={room}>
+        <Room
+          personNumbers={1}
+          roomNumber={1}
+          onClick={() => onClick("/room1")}
+        />
+        <Room
+          personNumbers={5}
+          roomNumber={2}
+          onClick={() => onClick("/room2")}
+        />
+        <Room
+          personNumbers={3}
+          roomNumber={3}
+          onClick={() => onClick("/room3")}
+        />
+      </div>
     </div>
   );
 };
 
 export default Home;
+
+const whole = css`
+  width: 80%;
+  height: 100vh;
+  margin: 0 auto;
+
+  @media (max-width: 500px) {
+    width: 80%;
+  }
+`;
+
+const header = css`
+  display: flex;
+  justify-content: space-around;
+  margin-top: 2%;
+  @media (max-width: 500px) {
+    margin: 5% 0;
+  }
+`;
+
+const room = css`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2%;
+  justify-content: center;
+  @media (max-width: 500px) {
+    flex-direction: column;
+  }
+`;
