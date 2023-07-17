@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import { ComponentPropsWithRef } from "react";
-import Check from "../../assets/google.svg";
+import Check from "../../assets/check.svg";
 
 interface PlayerNameProps extends ComponentPropsWithRef<"div"> {
   playerName: string;
