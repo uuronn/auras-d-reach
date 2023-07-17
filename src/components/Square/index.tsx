@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import * as THREE from "three";
-import Earth from "../../assets/king.png";
 
 function Square() {
   useEffect(()=>{
