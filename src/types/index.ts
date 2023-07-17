@@ -5,6 +5,7 @@ export interface User {
   isOnline: boolean;
   totalYuuriPoint: number;
   currentRoom: 1 | 2 | 3 | null;
+  displayName: string;
 }
 
 export type Room = {

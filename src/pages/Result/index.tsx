@@ -49,12 +49,17 @@ function Result() {
 
       getDocs(q).then((snapshot) => {
         const playerData = snapshot.docs.map((doc) => {
-          console.log("doc", doc);
-          return { id: doc.id, point: doc.data().room1.point };
+          return {
+            id: doc.id,
+            name: doc.data().displayName,
+            point: doc.data().room1.point
+          };
         });
 
+        console.log("player", playerData);
+
         const resultList = playerData.sort((a, b) => b.point - a.point);
-        console.log(resultList);
+        console.log("こんにちは", resultList[0].name);
 
         setResultList(resultList);
       });
@@ -74,7 +79,7 @@ function Result() {
             return (
               <RankingData
                 key={result.id}
-                RankingName={result.name ? result.name : "test"}
+                RankingName={result.name ? result.name : "名無し"}
                 point={result.point}
               />
             );

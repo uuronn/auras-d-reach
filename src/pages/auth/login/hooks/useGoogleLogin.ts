@@ -15,6 +15,7 @@ export const useGoogleLogin = async () => {
       room3: { point: 0, isAnswer: false, ranking: "unranked" },
       isOnline: false,
       currentRoom: null,
+      displayName: user.displayName || "名無し",
       totalYuuriPoint: 0
     };
 

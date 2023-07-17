@@ -46,8 +46,6 @@ export const Room1 = (): JSX.Element => {
 
         if (!room1Doc.exists()) return console.log("room1Doc");
 
-        if (!room1Doc.exists) return console.log("ああああ");
-
         const userStatusList: UserStatus[] = room1Doc.data().userStatusList;
 
         if (
