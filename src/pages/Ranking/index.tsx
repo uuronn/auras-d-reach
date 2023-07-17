@@ -33,6 +33,10 @@ const sec = css`
   transform: translateX(-50%);
 `;
 
+const whole = css`
+  width: 100%;
+`
+
 function Ranking() {
   const [playerList, setPlayerList] = useState<DocumentData[]>([]);
   const [topPlayer, setTopPlayer] = useState<string | DocumentData>("");
@@ -49,7 +53,7 @@ function Ranking() {
     })();
   }, []);
   return (
-    <div>
+    <div css={whole}>
       {playerList.map((playerData) => {
         return (
           playerData[0] == topPlayer && (

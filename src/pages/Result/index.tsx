@@ -20,7 +20,7 @@ const kingImg = css`
 
 const section = css`
   display: flex;
-  margin: 0 auto;
+  /* margin: 0 auto; */
   justify-content: center;
   max-width: 1200px;
   width: 100%;
@@ -38,6 +38,16 @@ const button = css`
     left: 64px;
   }
 `;
+const MainSection = css`
+  width: 80%;
+  margin: 0 auto 0 0;
+  text-align: center;
+  @media (max-width: 500px) {
+    width: 80%;
+    margin: 0;
+  }
+`;
+
 
 function Result() {
   const navigate = useNavigate();
@@ -74,7 +84,7 @@ function Result() {
       <p css={RankingText}>結果</p>
       <div css={section}>
         <img src={King} css={kingImg} alt="かんむり" />
-        <div>
+        <div css={MainSection}>
           {resultList.map((result) => {
             return (
               <RankingData
